@@ -10,6 +10,7 @@ endif
 
 " ================ General Config ====================
 
+set relativenumber              "Sets relative number
 set number                      "Line numbers are good
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
@@ -18,6 +19,7 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
+set mouse=a                     "Enable mouse
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
