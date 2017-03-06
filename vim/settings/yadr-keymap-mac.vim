@@ -29,8 +29,11 @@ nnoremap <D-[> f[ci[
 nnoremap <D-]> f]ci]
 
 " ==== NERD tree
-" Cmd-Shift-N for nerd tree
-nmap <D-N> :NERDTreeToggle<CR>
+" Ctrl-N for nerd tree
+map <silent> <CR> :NERDTreeToggle<cr>
+nnoremap <C-t> :call ToggleRelativeOn()<cr>
+" Close vim if only NERDTree is open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " move up/down quickly by using Cmd-j, Cmd-k
 " which will move us around by functions
