@@ -126,5 +126,5 @@
 [include]
   path = .gitconfig.user
 [user]
-	email = robert.st.kim@gmail.com
+	email = robby@thenewfoundry.com
 	name = Robby Kim
