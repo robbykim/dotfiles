@@ -123,7 +123,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 
 " gui
-set guifont=Inconsolata\ for\ Powerline:h15
+set guifont=Menlo:h12
 let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
 set t_Co=256
