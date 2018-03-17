@@ -31,7 +31,7 @@ nnoremap <D-]> f]ci]
 " ==== NERD tree
 " Ctrl-N for nerd tree
 map <silent> <CR> :NERDTreeToggle<cr>
-nnoremap <C-t> :call ToggleRelativeOn()<cr>
+" nnoremap <C-t> :call ToggleRelativeOn()<cr>
 " Close vim if only NERDTree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 

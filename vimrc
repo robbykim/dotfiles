@@ -138,3 +138,9 @@ if has ("gui_running")
     set guifont=Menlo:h12
   endif
 endif
+
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.pyc$', '\.DS_Store$']
+
+
+
