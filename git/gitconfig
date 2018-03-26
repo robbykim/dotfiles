@@ -128,3 +128,5 @@
 [user]
 	email = robby@thenewfoundry.com
 	name = Robby Kim
+[credential]
+	helper = cache
