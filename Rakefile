@@ -3,7 +3,7 @@ require 'rake'
 desc "install the dot files into user's home directory"
 task :install do |t, args|
   replace_all = (ENV["FORCE"] == 'true') || false
-  # link_zsh_theme
+  install_homebrew
   link_neovim
   Dir['*'].each do |file|
     next if %w[Rakefile README.md LICENSE id_dsa.pub robbykim.itermcolors].include? file
@@ -31,16 +31,32 @@ task :install do |t, args|
   end
 end
 
-# task :install_theme do
-#   link_zsh_theme
-# end
+def install_homebrew
+  system %Q{which brew}
+  unless $?.success?
+    puts "======================================"
+    puts "Installing Homebrew"
+    puts "======================================"
+    system %Q{bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"}
+  end
+
+  puts
+  puts "======================================"
+  puts "Updating Homebrew"
+  puts "======================================"
+  system %Q{brew update}
+  puts
+  puts "======================================"
+  puts "Installing Brew Packages"
+  puts "======================================"
+  system %Q{brew install gh neovim the_silver_searcher zsh}
+end
+
 
 def link_neovim
   base_dir = ".config"
   base_path = File.join(ENV["HOME"], base_dir)
   init_file_path = File.join(base_path, "nvim", "init.vim")
-  puts base_path
-  puts directory_exists?(base_path)
 
   system %Q{mkdir #{base_path}} unless directory_exists?(base_path)
   system %Q{mkdir #{base_path}/nvim} unless directory_exists?("#{base_path}/nvim")
@@ -62,9 +78,3 @@ end
 def directory_exists?(directory)
   !Dir[directory].empty?
 end
-
-# def link_zsh_theme
-#   file = "miler.zsh-theme"
-#   puts "linking ZSH theme"
-#   system %Q{ln -s "$PWD/#{file}" "$HOME/.oh-my-zsh/themes/#{file}"}
-# end
