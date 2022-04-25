@@ -5,8 +5,10 @@ task :install do |t, args|
   replace_all = (ENV["FORCE"] == 'true') || false
   install_homebrew
   link_neovim
+  setup_zsh
+
   Dir['*'].each do |file|
-    next if %w[Rakefile README.md LICENSE id_dsa.pub robbykim.itermcolors].include? file
+    next if %w[Rakefile Brewfile README.md install.sh LICENSE id_dsa.pub robbykim.itermcolors].include? file
 
     if File.exist?(File.join(ENV['HOME'], ".#{file}"))
       if replace_all
@@ -49,9 +51,8 @@ def install_homebrew
   puts "======================================"
   puts "Installing Brew Packages"
   puts "======================================"
-  system %Q{brew install gh neovim the_silver_searcher zsh}
+  system %Q{brew bundle}
 end
-
 
 def link_neovim
   base_dir = ".config"
@@ -63,6 +64,14 @@ def link_neovim
   unless File.exist?(init_file_path)
     system %Q{echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after\nlet &packpath = &runtimepath\nsource ~/.vimrc" > #{init_file_path}}
   end
+end
+
+def setup_zsh
+  puts
+  puts "======================================"
+  puts "Installing oh-my-zsh"
+  puts "======================================"
+  system %Q{sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"}
 end
 
 def replace_file(file)
