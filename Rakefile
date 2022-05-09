@@ -42,6 +42,16 @@ def install_homebrew
     system %Q{bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"}
   end
 
+  system %Q{which brew}
+  unless $?.success?
+    puts
+    puts "======================================"
+    puts "Adding Homebrew to PATH"
+    puts "======================================"
+    system %Q{echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile}
+    system %Q{eval "$(/opt/homebrew/bin/brew shellenv)"}
+  end
+
   puts
   puts "======================================"
   puts "Updating Homebrew"
@@ -64,6 +74,11 @@ def link_neovim
   unless File.exist?(init_file_path)
     system %Q{echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after\nlet &packpath = &runtimepath\nsource ~/.vimrc" > #{init_file_path}}
   end
+
+  puts
+  puts "======================================"
+  puts "Don't forget to :PlugInstall"
+  puts "======================================"
 end
 
 def setup_zsh
@@ -72,6 +87,8 @@ def setup_zsh
   puts "Installing oh-my-zsh"
   puts "======================================"
   system %Q{sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"}
+
+  # TODO: Add powerlevel10k installation and configuration
 end
 
 def replace_file(file)
