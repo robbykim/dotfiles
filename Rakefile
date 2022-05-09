@@ -8,7 +8,7 @@ task :install do |t, args|
   setup_zsh
 
   Dir['*'].each do |file|
-    next if %w[Rakefile Brewfile README.md install.sh LICENSE id_dsa.pub robbykim.itermcolors].include? file
+    next if %w[Rakefile Brewfile Brewfile.lock.json README.md install.sh LICENSE id_dsa.pub robbykim.itermcolors].include? file
 
     if File.exist?(File.join(ENV['HOME'], ".#{file}"))
       if replace_all
