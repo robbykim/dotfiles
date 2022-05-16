@@ -9,7 +9,7 @@ alias gpull="git pull"
 alias gl="git log"
 
 # navigation aliases
-alias sana="cd ~/Projects/origami_claims"
+alias cnc="cd ~/Projects/payments"
 
 # docker
 alias dc="docker-compose"
