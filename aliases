@@ -3,28 +3,62 @@ alias gs="git status"
 alias gall="git add -u"
 alias gco="git checkout"
 alias gc="git commit -m"
-alias gb="git branch"
+alias gb="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:relative)' | head -n 10"
 alias gp="git push"
 alias gpull="git pull"
 alias gl="git log"
+alias grc="git rebase --continue"
+alias gra="git rebase --abort"
+
+# Check out branch by ticket name
+function gcot() {
+  local tick_num=$1
+  local branch_name=$(git branch --list | grep -oE "robby\-[a-zA-Z]{3}-$tick_num(\-[a-zA-Z0-9_-]+)?")
+
+  if [ -z "$branch_name" ]; then
+    echo "No branch found for ticket number ${tick_num}."
+    return 1
+  fi
+
+  git checkout "${branch_name}"
+}
+
+function mainBranch() {
+  if git show-ref -q --heads main; then
+    echo "main"
+  else
+    echo "master"
+  fi
+}
+alias gcom='git checkout $(mainBranch)'
+
+function branch {
+  git symbolic-ref -q --short HEAD
+}
+
+function gpo() {
+  git push origin `branch` -u
+}
 
 # navigation aliases
-alias cnc="cd ~/Projects/payments"
+alias cc="cd ~/Projects/payments"
+alias ccngrok="ngrok start cc cc-vite"
 
 # docker
 alias dc="docker-compose"
 alias app="docker-compose run --rm app"
 alias dc_sidekiq="docker-compose -f docker-compose.yml -f docker-compose.sidekiq.yml up"
-alias dexec='docker exec -it origami_claims_app_1'
+alias dexec='docker exec -it `basename "$PWD"`-app-1'
+alias dbe="dexec bundle exec"
+alias console="dexec bundle exec rails c"
 
 # ssh
-alias ssh_prod='ssh -i ~/Documents/Work/sana_key_pair_2.pem ubuntu@10.0.3.164'
-alias ssh_internal='ssh -i ~/Documents/Work/sana_key_pair_2.pem ubuntu@10.0.3.127'
-alias ssh_staging='ssh -i ~/Documents/Work/sana_key_pair_2.pem ubuntu@10.0.1.66'
-alias ssh_deploy='ssh -i ~/Documents/Work/sana_key_pair_2.pem ubuntu@10.0.3.171'
-alias ssh_scheduler='ssh -i ~/Documents/Work/sana_key_pair_2.pem ubuntu@10.0.3.215'
-alias ssh_demo='ssh -i ~/Documents/Work/sana_key_pair_2.pem ubuntu@10.0.1.155'
-alias ssh_staging_webhooks='ssh -i ~/Documents/Work/sana_key_pair_2.pem ubuntu@10.0.1.164'
+alias ssh_prod='heroku run bundle exec rake safe_console -a ccpayments-prod'
+alias ssh_staging='heroku run bundle exec rake safe_console -a ccpayments-staging'
+alias ssh_demo='heroku run bundle exec rake safe_console -a ccpayments-demo'
+
+# vim
+alias v="nvim"
 
 # ansible
 alias vault_staging='ansible-vault edit ansible/encrypted_keys_staging --vault-password=~/Projects/ansible_pass'

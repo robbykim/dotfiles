@@ -41,9 +41,13 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # RB Env
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"
+export PATH="$PATH:$HOME/Downloads/chromedriver"
 
 if which rbenv &> /dev/null; then
   eval "$(rbenv init -)"
 fi
 
 export FZF_DEFAULT_COMMAND='rg --files --color=never'
+
+# Created by `pipx` on 2025-01-29 16:19:45
+export PATH="$PATH:/Users/robbykim/.local/bin"
