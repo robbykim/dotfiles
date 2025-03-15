@@ -34,7 +34,7 @@ Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'noprompt/vim-yardoc'
 Plug 'itchyny/lightline.vim'
-Plug 'ap/vim-buftabline' " NOTE: maybe do C-N C-M for nav
+Plug 'ap/vim-buftabline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -61,6 +61,8 @@ autocmd vimenter * ++nested colorscheme solarized8_flat
 filetype plugin indent on
 syntax enable
 set noshowmode
+
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
 let g:lightline = {
       \ 'colorscheme': 'solarized',
@@ -166,8 +168,8 @@ map <silent> <Leader>ss <C-w>s
 noremap <Leader>bb :Buffers<cr>
 map <silent> <Leader><Space> :noh<CR>
 
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-M> :bprev<CR>
+nnoremap <silent> <C-M> :bnext<CR>
+nnoremap <silent> <C-N> :bprev<CR>
 nnoremap <silent> <Leader>ww :bp<BAR>bd#<cr>
 nnoremap <silent> <Leader>bda :%bdelete<bar>edit #<bar>normal `"<cr>
 
@@ -221,67 +223,3 @@ nnoremap <silent> <Leader>gb :Git blame<cr>
 
 " -- ripgrep --
 set grepprg=rg\ --color=never
-
-" -- nvim-cmp --
-"
-lua <<EOF
-  local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' },
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    }),
-    matching = { disallow_symbol_nonprefix_matching = false }
-  })
-
-  -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-
-  -- typescript
-  require('lspconfig')['ts_ls'].setup {
-    capabilities = capabilities
-  }
-
-  -- ruby
-  require('lspconfig')['ruby_lsp'].setup {
-    capabilities = capabilities
-  }
-EOF
