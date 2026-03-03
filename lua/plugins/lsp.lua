@@ -14,6 +14,18 @@ return {
       root_markers = { 'Gemfile', '.git' },
     })
 
+    vim.lsp.config('rust_analyzer', {
+      capabilities = capabilities,
+      root_markers = { 'Cargo.toml', '.git' },
+      settings = {
+        ['rust-analyzer'] = {
+          diagnostics = {
+            enable = false;
+          }
+        }
+      }
+    })
+
     -- Auto-enable based on filetype
     vim.api.nvim_create_autocmd('FileType', {
       pattern = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
@@ -26,6 +38,13 @@ return {
       pattern = 'ruby',
       callback = function(args)
         vim.lsp.enable('ruby_lsp', args.buf)
+      end,
+    })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'rust',
+      callback = function(args)
+        vim.lsp.enable('rust_analyzer', args.buf)
       end,
     })
   end,
