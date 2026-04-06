@@ -19,6 +19,7 @@ vim.opt.startofline = false
 vim.opt.confirm = true
 vim.opt.visualbell = true
 vim.opt.cmdheight = 2
+vim.opt.conceallevel = 1
 
 -- Display line numbers
 vim.opt.number = true
