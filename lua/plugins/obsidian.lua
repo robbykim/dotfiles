@@ -7,18 +7,18 @@ return {
     {
       "<leader>oo",
       function()
-        vim.cmd("split")
+        vim.cmd("15split")
         vim.cmd("ObsidianQuickSwitch")
       end,
-      desc = "Open Obsidian note in vsplit",
+      desc = "Open Obsidian note in split",
     },
     {
       "<leader>on",
       function()
-        vim.cmd("split")
+        vim.cmd("15split")
         vim.cmd("ObsidianNew")
       end,
-      desc = "New Obsidian note in vsplit",
+      desc = "New Obsidian note in split",
     },
     {
       "<leader>os",
@@ -28,10 +28,23 @@ return {
     {
       "<leader>ot",
       function()
-        vim.cmd("split")
+        vim.cmd("15split")
         vim.cmd("ObsidianToday")
       end,
-      desc = "Open today's daily note in vsplit",
+      desc = "Open today's daily note in split",
+    },
+    {
+      "<leader>oi",
+      function()
+        local height = vim.api.nvim_win_get_height(0)
+        if height > 15 then
+          vim.cmd("resize 15")
+        else
+          local total = vim.o.lines
+          vim.cmd("resize " .. math.floor(total * 0.75))
+        end
+      end,
+      desc = "Toggle obsidian split size",
     },
   },
   dependencies = {

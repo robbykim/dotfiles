@@ -45,13 +45,21 @@ return {
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
     opts = {},
   },
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
+      keywords = {
+        DONE = { icon = " ", color = "#a6da95" },
+        TODO = { icon = " ", color = "#8aadf4" },
+        TODAY = { icon = " ", color = "error" },
+      },
       highlight = {
         comments_only = false,
       },
