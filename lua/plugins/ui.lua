@@ -58,7 +58,9 @@ return {
       keywords = {
         DONE = { icon = " ", color = "#a6da95" },
         TODO = { icon = " ", color = "#8aadf4" },
-        TODAY = { icon = " ", color = "error" },
+        TODAY = { icon = " ", color = "#f5a97f" },
+        BLOCKED = { icon = " ", color = "error" },
+        WAITING = { icon = " ", color = "#f0c6c6" },
       },
       highlight = {
         comments_only = false,
