@@ -61,6 +61,8 @@ return {
         TODAY = { icon = " ", color = "#f5a97f" },
         BLOCKED = { icon = " ", color = "error" },
         WAITING = { icon = " ", color = "#f0c6c6" },
+        CANCELED = { icon = " ", color = "#6e738d" },
+        DEFER = { icon = " ", color = "#b7bdf8" },
       },
       highlight = {
         comments_only = false,
