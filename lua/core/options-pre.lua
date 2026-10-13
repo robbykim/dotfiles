@@ -49,7 +49,7 @@ vim.opt.undodir = vim.fn.expand('~/.vim/undo//')
 vim.opt.autoread = true
 
 -- Show whitespace
-vim.opt.listchars = { tab = '»»', trail = '·', nbsp = '~' }
+vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '~' }
 vim.opt.list = true
 
 -- Grep
